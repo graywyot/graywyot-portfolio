@@ -1,0 +1,297 @@
+---
+import Base from "../layouts/Base.astro";
+
+const tracks = [
+  {
+    title: "Có Anh Ở Đây",
+    artist: "Bảo Anh",
+    provider: "spotify",
+    id: "0aMweBE0y1IwmxDyXNVJrg",
+  },
+  {
+    title: "Love Me Right",
+    artist: "NGHI",
+    provider: "spotify",
+    id: "4GKnPHsQ2iJBUNUCXsRqK5",
+  },
+  {
+    title: "LALA LOVE ME",
+    artist: "minirieu",
+    provider: "soundcloud",
+    url: "https://soundcloud.com/minirieu-music/lala-love-me",
+  },
+  {
+    title: "Tâm Trí Em (Eriuss Remix)",
+    artist: "linhka",
+    provider: "soundcloud",
+    url: "https://soundcloud.com/linhka-sc/tam-tri-em-eriuss-remix",
+  },
+];
+
+// TODO(Gray): Replace with your Formspree endpoint after creating form at formspree.io
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/REPLACE_ME";
+// TODO(Gray): Replace with your SoundBetter profile URL
+const SOUNDBETTER_URL = "https://soundbetter.com";
+---
+<Base>
+  <!-- Top nav -->
+  <header class="mx-auto max-w-[72rem] px-6 pt-8 md:pt-10">
+    <nav class="flex items-center justify-between text-sm tracking-tight">
+      <a href="/" class="font-serif text-[1.25rem] leading-none" style="font-family: var(--font-serif); font-weight: 500;">Gray Wyot</a>
+      <div class="hidden gap-8 text-[color:var(--color-ink-soft)] md:flex">
+        <a href="#work" class="hover:text-[color:var(--color-ink)]">Work</a>
+        <a href="#about" class="hover:text-[color:var(--color-ink)]">About</a>
+        <a href="#services" class="hover:text-[color:var(--color-ink)]">Services</a>
+        <a href="#contact" class="hover:text-[color:var(--color-ink)]">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="mx-auto max-w-[72rem] px-6 pt-28 pb-32 md:pt-44 md:pb-48">
+    <p class="text-[0.78rem] uppercase tracking-[0.18em] text-[color:var(--color-muted)]">Mixing &amp; Mastering Engineer</p>
+    <h1
+      class="mt-6 font-serif text-[clamp(3rem,10vw,8rem)] leading-[0.95] tracking-[-0.02em]"
+      style="font-family: var(--font-serif); font-weight: 400;"
+    >
+      Gray Wyot.
+    </h1>
+    <p
+      class="mt-10 max-w-2xl font-serif text-[clamp(1.25rem,2.4vw,1.75rem)] leading-snug text-[color:var(--color-ink-soft)]"
+      style="font-family: var(--font-serif); font-weight: 300;"
+    >
+      Music-first mixing for records that deserve to be heard clearly.
+      Pop · R&amp;B · Hip Hop · Dance Pop. Based in Vietnam.
+    </p>
+    <div class="mt-12 flex flex-wrap items-center gap-4 text-sm">
+      <a
+        href="#work"
+        class="rounded-full bg-[color:var(--color-ink)] px-6 py-3 text-[color:var(--color-paper)] transition hover:opacity-90"
+        >Listen to selected work</a
+      >
+      <a
+        href="#contact"
+        class="rounded-full border border-[color:var(--color-rule)] px-6 py-3 text-[color:var(--color-ink)] transition hover:border-[color:var(--color-ink)]"
+        >Start a project</a
+      >
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-[72rem] px-6"><div class="h-px w-full bg-[color:var(--color-rule)]"></div></div>
+
+  <!-- Selected Work -->
+  <section id="work" class="mx-auto max-w-[72rem] px-6 py-28 md:py-36">
+    <div class="flex items-baseline justify-between">
+      <p class="text-[0.78rem] uppercase tracking-[0.18em] text-[color:var(--color-muted)]">Selected Work</p>
+      <p class="text-sm text-[color:var(--color-ink-soft)]">2021 —</p>
+    </div>
+    <h2
+      class="mt-6 max-w-3xl font-serif text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] tracking-[-0.02em]"
+      style="font-family: var(--font-serif); font-weight: 400;"
+    >
+      Records that made it out of the room.
+    </h2>
+
+    <div class="mt-16 grid gap-16">
+      {tracks.map((t) => (
+        <article class="grid items-start gap-6 md:grid-cols-[1fr_2fr] md:gap-12">
+          <div>
+            <h3
+              class="font-serif text-[clamp(1.35rem,2.2vw,1.9rem)] leading-tight tracking-tight"
+              style="font-family: var(--font-serif); font-weight: 500;"
+            >
+              {t.title}
+            </h3>
+            <p class="mt-2 text-sm text-[color:var(--color-ink-soft)]">{t.artist}</p>
+            <p class="mt-4 text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted)]">
+              Mix{t.provider === "soundcloud" ? " · SoundCloud" : " · Spotify"}
+            </p>
+          </div>
+          <div class="embed-frame">
+            {t.provider === "spotify" ? (
+              <iframe
+                src={`https://open.spotify.com/embed/track/${t.id}?utm_source=generator`}
+                width="100%"
+                height="152"
+                frameborder="0"
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                title={`${t.title} — ${t.artist}`}
+              ></iframe>
+            ) : (
+              <iframe
+                width="100%"
+                height="166"
+                frameborder="no"
+                scrolling="no"
+                allow="autoplay"
+                loading="lazy"
+                src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
+                  t.url ?? ""
+                )}&color=%23141413&inverse=false&auto_play=false&show_user=true&hide_related=true&show_reposts=false&show_teaser=false&visual=false`}
+                title={`${t.title} — ${t.artist}`}
+              ></iframe>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-[72rem] px-6"><div class="h-px w-full bg-[color:var(--color-rule)]"></div></div>
+
+  <!-- About -->
+  <section id="about" class="mx-auto max-w-[72rem] px-6 py-28 md:py-36">
+    <p class="text-[0.78rem] uppercase tracking-[0.18em] text-[color:var(--color-muted)]">About</p>
+    <div class="mt-8 grid gap-12 md:grid-cols-[1fr_1fr]">
+      <h2
+        class="font-serif text-[clamp(2rem,5vw,3.25rem)] leading-[1.05] tracking-[-0.02em]"
+        style="font-family: var(--font-serif); font-weight: 400;"
+      >
+        Serve the song.
+        <span class="block text-[color:var(--color-muted)]">Clarity is king.</span>
+      </h2>
+      <div class="space-y-6 text-[1.05rem] leading-[1.7] text-[color:var(--color-ink-soft)] md:text-[1.125rem]">
+        <p>
+          I've been mixing records since 2021, chasing a simple idea: every decision is musical before it is technical.
+          Compressors, EQs, reverbs — they only matter if they help the song reach the listener more clearly.
+        </p>
+        <p>
+          My work lives in pop, R&amp;B, hip hop and dance pop — full productions and remixes for artists like
+          Bảo Anh, NGHI, Ngọt and Phan Mạnh Quỳnh. In the box, on Genelec and HD 600, with a library of tools I trust.
+        </p>
+        <p>
+          If your record deserves to be heard clearly, I'd love to hear it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-[72rem] px-6"><div class="h-px w-full bg-[color:var(--color-rule)]"></div></div>
+
+  <!-- Services -->
+  <section id="services" class="mx-auto max-w-[72rem] px-6 py-28 md:py-36">
+    <p class="text-[0.78rem] uppercase tracking-[0.18em] text-[color:var(--color-muted)]">Services</p>
+    <h2
+      class="mt-6 max-w-3xl font-serif text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] tracking-[-0.02em]"
+      style="font-family: var(--font-serif); font-weight: 400;"
+    >
+      Mixing. Mastering. Done with intent.
+    </h2>
+
+    <div class="mt-16 grid gap-10 md:grid-cols-2 md:gap-16">
+      <div class="border-t border-[color:var(--color-rule)] pt-8">
+        <h3 class="font-serif text-2xl" style="font-family: var(--font-serif); font-weight: 500;">Mixing</h3>
+        <p class="mt-4 text-[1.05rem] leading-[1.7] text-[color:var(--color-ink-soft)]">
+          Full song mix — vocal balance, tonal shape, punch and space. Unlimited recalls within a reasonable scope.
+          Stems delivered in 24-bit / 48 kHz.
+        </p>
+      </div>
+      <div class="border-t border-[color:var(--color-rule)] pt-8">
+        <h3 class="font-serif text-2xl" style="font-family: var(--font-serif); font-weight: 500;">Mastering</h3>
+        <p class="mt-4 text-[1.05rem] leading-[1.7] text-[color:var(--color-ink-soft)]">
+          Final polish and translation — streaming-ready masters with competitive loudness and dynamics intact.
+          DDP, WAV, or MP3 on request.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-wrap items-center gap-4 text-sm">
+      <a
+        href={SOUNDBETTER_URL}
+        target="_blank"
+        rel="noopener"
+        class="rounded-full bg-[color:var(--color-accent)] px-6 py-3 text-[color:var(--color-paper)] transition hover:opacity-90"
+        >Book on SoundBetter</a
+      >
+      <a
+        href="#contact"
+        class="rounded-full border border-[color:var(--color-rule)] px-6 py-3 text-[color:var(--color-ink)] transition hover:border-[color:var(--color-ink)]"
+        >Direct inquiry</a
+      >
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-[72rem] px-6"><div class="h-px w-full bg-[color:var(--color-rule)]"></div></div>
+
+  <!-- Contact -->
+  <section id="contact" class="mx-auto max-w-[72rem] px-6 py-28 md:py-36">
+    <p class="text-[0.78rem] uppercase tracking-[0.18em] text-[color:var(--color-muted)]">Contact</p>
+    <div class="mt-8 grid gap-12 md:grid-cols-[1fr_1.2fr]">
+      <div>
+        <h2
+          class="font-serif text-[clamp(2rem,5vw,3.25rem)] leading-[1.05] tracking-[-0.02em]"
+          style="font-family: var(--font-serif); font-weight: 400;"
+        >
+          Let's make it sound right.
+        </h2>
+        <p class="mt-6 text-[1.05rem] leading-[1.7] text-[color:var(--color-ink-soft)]">
+          Tell me a little about your project — genre, reference, deadline. I reply within 24 hours.
+        </p>
+        <p class="mt-10 text-sm text-[color:var(--color-ink-soft)]">
+          Email ·{" "}
+          <a
+            href="mailto:hello@graywyot.com"
+            class="underline decoration-[color:var(--color-rule)] underline-offset-4 hover:decoration-[color:var(--color-ink)]"
+            >hello@graywyot.com</a
+          >
+        </p>
+      </div>
+
+      <form
+        action={FORMSPREE_ENDPOINT}
+        method="POST"
+        class="grid gap-5 rounded-xl border border-[color:var(--color-rule)] bg-white/40 p-6 md:p-8"
+      >
+        <label class="block">
+          <span class="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted)]">Name</span>
+          <input
+            type="text"
+            name="name"
+            required
+            class="mt-2 w-full border-0 border-b border-[color:var(--color-rule)] bg-transparent py-2 text-[color:var(--color-ink)] outline-none focus:border-[color:var(--color-ink)]"
+          />
+        </label>
+        <label class="block">
+          <span class="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted)]">Email</span>
+          <input
+            type="email"
+            name="email"
+            required
+            class="mt-2 w-full border-0 border-b border-[color:var(--color-rule)] bg-transparent py-2 text-[color:var(--color-ink)] outline-none focus:border-[color:var(--color-ink)]"
+          />
+        </label>
+        <label class="block">
+          <span class="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted)]">Project details</span>
+          <textarea
+            name="message"
+            rows="5"
+            required
+            class="mt-2 w-full border-0 border-b border-[color:var(--color-rule)] bg-transparent py-2 text-[color:var(--color-ink)] outline-none focus:border-[color:var(--color-ink)]"
+          ></textarea>
+        </label>
+        <button
+          type="submit"
+          class="mt-2 inline-flex w-fit rounded-full bg-[color:var(--color-ink)] px-6 py-3 text-sm text-[color:var(--color-paper)] transition hover:opacity-90"
+        >
+          Send inquiry
+        </button>
+        <p class="text-xs text-[color:var(--color-muted)]">
+          Form powered by Formspree. Replace endpoint in <code>src/pages/index.astro</code> once activated.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mx-auto max-w-[72rem] px-6 pb-14 pt-8">
+    <div class="flex flex-col items-start justify-between gap-4 border-t border-[color:var(--color-rule)] pt-8 text-sm text-[color:var(--color-ink-soft)] md:flex-row md:items-center">
+      <p>© 2026 Gray Wyot. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="https://instagram.com/graywyot" target="_blank" rel="noopener" class="hover:text-[color:var(--color-ink)]">Instagram</a>
+        <a href={SOUNDBETTER_URL} target="_blank" rel="noopener" class="hover:text-[color:var(--color-ink)]">SoundBetter</a>
+        <a href="mailto:hello@graywyot.com" class="hover:text-[color:var(--color-ink)]">Email</a>
+      </div>
+    </div>
+  </footer>
+</Base>
